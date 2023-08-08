@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { BasicLayout } from './layout/BasicLayout';
 import { Home } from './pages/Home';
+import { Login } from './pages/Login';
 import { NoPage } from './pages/NoPage';
 import { Register } from './pages/Register';
 
@@ -11,6 +12,7 @@ function App() {
         <Route Component={BasicLayout}>
           <Route index path='/' element={<Home/>} />
           <Route path='/register' element={<Register/>} />
+          <Route path='/login' element={<Login/>} />
           <Route path='*' element={<NoPage/>} />
         </Route>
       </Routes>
