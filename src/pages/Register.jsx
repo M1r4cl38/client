@@ -36,12 +36,8 @@ export function Register() {
     setRepass(e.target.value);
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        
+    function isValidUsername() {
         const minUsernameSize = 2;
-        const minEmailSize = 6;
-        const minPassSize = 6;
 
         if (username.length < minUsernameSize) {
             setUsernameErr(true);
@@ -50,23 +46,33 @@ export function Register() {
             setUsernameErr(false);
             setUsernameValid(true);
         }
+    }
 
-        if (email.length < minEmailSize) {
+    function isValidEmail() {
+         const minEmailSize = 6;
+
+         if (email.length < minEmailSize) {
             setEmailErr(true);
             setEmailValid(false);
         } else {
             setEmailErr(false);
             setEmailValid(true);
         }
+    }
 
-        if (pass.length < minPassSize) {
+    function isValidPassword() {
+         const minPassSize = 6;
+
+         if (pass.length < minPassSize) {
             setPassErr(true);
             setPassValid(false);
         } else {
             setPassErr(false);
             setPassValid(true);
         }
+    }
 
+    function isValidRepeatPassword() {
         if (pass !== repass) {
             setRepassErr(true);
             setRepassValid(false);
@@ -74,6 +80,10 @@ export function Register() {
             setRepassErr(false);
             setRepassValid(true);
         }
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
 
         if (!usernameErr && !emailErr && !passErr && !repassErr) {
             console.log('siunciam i serveri...');
@@ -86,7 +96,7 @@ export function Register() {
         <h1 className="h1 mb-3 fw-normal">Please sign up</h1>
 
         <div className="form-floating mb-3">
-            <input onChange={updateUsername} type="text" id="username"
+            <input onChange={updateUsername} onBlur={isValidUsername} type="text" id="username"
             className={`form-control ${usernameErr ? 'is-invalid' : ''} ${usernameValid ? 'is-valid' : ''}`} />
             <label htmlFor="floatingInput">Username</label>
             <div className="valid-feedback">
@@ -98,7 +108,7 @@ export function Register() {
         </div>
         
         <div className="form-floating mb-3">
-            <input onChange={updateEmail} type="email" id="email"
+            <input onChange={updateEmail} onBlur={isValidEmail} type="email" id="email"
             className={`form-control ${emailErr ? 'is-invalid' : ''} ${emailValid ? 'is-valid' : ''}`} />
             <label htmlFor="floatingInput">Email address</label>
             <div className="valid-feedback">
@@ -110,7 +120,7 @@ export function Register() {
         </div>
 
         <div className="form-floating mb-3">
-            <input onChange={updatePass} type="password" id="password"
+            <input onChange={updatePass} onBlur={isValidPassword} type="password" id="password"
             className={`form-control ${passErr ? 'is-invalid' : ''} ${passValid ? 'is-valid' : ''}`} />
             <label htmlFor="floatingPassword">Password</label>
             <div className="valid-feedback">
@@ -122,7 +132,7 @@ export function Register() {
         </div>
 
         <div className="form-floating mb-3">
-            <input onChange={updateRepass} type="password" id="repass"
+            <input onChange={updateRepass} onBlur={isValidRepeatPassword} type="password" id="repass"
             className={`form-control ${repassErr ? 'is-invalid' : ''} ${repassValid ? 'is-valid' : ''}`} />
             <label htmlFor="floatingPassword">Repeat password</label>
             <div className="valid-feedback">
