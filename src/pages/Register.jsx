@@ -86,7 +86,18 @@ export function Register() {
         e.preventDefault();
 
         if (!usernameErr && !emailErr && !passErr && !repassErr) {
-            console.log('siunciam i serveri...');
+            fetch('http://localhost:3001/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    email,
+                    password: pass,
+                }),
+            }).then (res => res.json())
+                .then(console.log);
         }
     }
 
@@ -149,7 +160,8 @@ export function Register() {
             Remember me
         </label>
         </div>
-        <button className="btn btn-primary w-100 py-2 mb-3" type="submit">Sign up</button>
+        <button className="btn btn-primary w-100 py-2 mb-3" type="submit" 
+        disabled={!usernameValid || !emailValid || !passValid || !repassValid} >Sign up</button>
         <Link to='/login' className="btn btn-outline-primary w-100 py-2">Sign in</Link>
         <p className="mt-5 mb-3 text-body-secondary">© 2017–2023</p>
     </form>
